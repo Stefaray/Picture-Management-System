@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="Real:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/Real_war</output-path>
+    <root id="archive" name="Real_war.war">
+      <element id="artifact" artifact-name="Real:war exploded" />
+      <element id="dir-copy" path="$PROJECT_DIR$/web" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib" />
+      </element>
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>

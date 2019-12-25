@@ -1,0 +1,162 @@
+
+@font-face {
+    font-family: 'quicksandlight';
+    /*src: url('../fonts/quicksand_light-webfont.eot');*/
+    /*src: url('../fonts/quicksand_light-webfont.eot?#iefix') format('embedded-opentype'),*/
+    /*     url('../fonts/quicksand_light-webfont.woff') format('woff'),*/
+    /*     url('../fonts/quicksand_light-webfont.ttf') format('truetype'),*/
+    /*     url('../fonts/quicksand_light-webfont.svg#quicksandlight') format('svg');*/
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/* #Reset & Basics (Inspired by E. Meyers)
+================================================== */
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline; }
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none; }
+	table {
+		border-collapse: collapse;
+		border-spacing: 0; }
+		
+		
+/* #Prototype Styles
+================================================== */		
+html, body{ background-color:#1a948d; }	
+
+body
+{ 
+	/*background-image: url('../images/background.jpg');*/
+	background-repeat: no-repeat;
+	background-position: top center;
+	width:100%;
+	background-size:cover;
+	height:100%;
+	min-height:1000px;
+	overflow:hidden;
+	font-family: 'quicksandlight', Helvetica, Arial;
+	color:#FFFFFF;
+	text-shadow: -1px -1px 4px rgba(0, 0, 0, .35);
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+
+header
+{
+	
+	margin-top:30px;
+	position:absolute;
+	z-index:5;
+	width:420px;
+	padding-top:10px;
+	padding-bottom:10px;
+
+}
+
+h1{
+	
+	font-size:36px;
+	letter-spacing:-2.5px;
+	margin-left:30px;
+}
+
+h3{
+	
+	font-size:16px;
+	letter-spacing:-1.5px;
+	margin-top:5px;
+	margin-left:35px;
+}
+
+#fps
+{
+	margin-top:5px;
+	margin-left:35px;
+}
+
+a
+{
+	color:rgba( 255, 255, 255, .65 );
+	text-decoration: none;
+}
+
+a:hover
+{
+	color:rgba( 255, 255, 255, 1 );
+}
+
+
+
+
+
+/* 表格样式 */
+
+
+#Main {
+	width: 600px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+table {
+	background-color: slategray;
+	width: 600px;
+	border-collapse: collapse;
+	text-align: left;
+	margin: 10px 5px 5px 10px;
+	cursor: default;
+	border: 1px solid #ccc;
+	margin-top: 20px;
+	box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.75);
+	border: 1px solid rgba(127, 255, 255, 0.75);
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.75);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.75);
+	box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.75);
+}
+
+.tbTitle>th {
+	font-weight: 300;
+	text-align: center;
+	padding: 10px 0 10px 0;
+	font: 15px "微软雅黑", Arial, Helvetica, sans-serif;
+	background-color: rgba(0, 93, 93, 0.8);
+	color: #efefef;
+	text-shadow: 0px 0px 20px rgba(127, 255, 255, 1);
+}
+
+th,
+td {
+	border: 1px solid rgba(127, 255, 255, 0.55);
+
+}
+
+.tbContext:hover {
+	background-color: rgba(0, 99, 99, 0.9) !important;
+}
+
+td,
+td>a {
+	font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+	text-align: center;
+	padding: 6px 0 6px 0;
+	color: rgba(127, 255, 255, 0.75);
+	text-shadow: 0px 0px 20px rgba(0, 255, 255, 0.75);
+
+}

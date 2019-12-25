@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title></title>
+
+  <link rel='stylesheet prefetch' href='css/check_bgc.css'>
+
+	<link rel="stylesheet" href="css/check_style.css" media="screen" type="text/css" />
+	
+	<style>
+		#close {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            text-indent: -999em;
+            background-color: white;
+        }
+		#word{
+			font-size: 30px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div id="close">关闭</div>
+
+	<div id="contentContainer" class="trans3d"> 
+	<section id="carouselContainer" class="trans3d">
+		<figure id="item1" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/portfolio-1.jpg" class="photo"/></div></figure>
+		<figure id="item2" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/portfolio-2.jpg" class="photo"/></div></figure>
+		<figure id="item3" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/portfolio-3.jpg" class="photo"/></div></figure>
+		<figure id="item4" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/portfolio-4.jpg" class="photo"/></div></figure>
+		<figure id="item5" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/portfolio-5.jpg" class="photo"/></div></figure>
+		<figure id="item6" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/author-2.jpg" class="photo"/></div></figure>
+		<figure id="item7" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/author-4.jpg" class="photo"/></div></figure>
+		<figure id="item8" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="image/author-6.jpg" class="photo"/></div></figure>
+	</section>
+	</div>
+
+  <script src='js/check_libs.min.js'></script>
+
+  <script src="js/check_index.js"></script>
+  <script>
+	  // alert("不好意思，此功能请敬请期待!!!");
+		  var url=location.search;
+		  var imageNames = url.substr(1).split(",");
+		//   alert(imageNames.length);
+		//   alert(imageNames);
+		  var carouselContainer = document.getElementById("carouselContainer");
+		  carouselContainer.innerHTML = "";
+			  if(imageNames.length <= 1){
+			  alert("请上传两张及以上的图片");
+			  window.history.back(-1);
+		  }
+		  for(var i=0; i<imageNames.length; i++){
+			  carouselContainer.innerHTML += '<figure id="item1" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="'+imageNames[i]+'" class="photo"/></div></figure>';
+		  }
+		  var close = document.getElementById("close");
+		  close.onclick = function (){
+			//   alert(1);
+			window.history.back(-1);
+		  }
+
+  </script>
+
+</body>
+
+</html>

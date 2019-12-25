@@ -1,0 +1,72 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Real:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Real_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Real/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Real" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.9" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.9" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/jstl.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/standard.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/druid-1.1.10.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-io-2.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-logging-1.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-fileupload-1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.9.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/spring-tx-5.1.10.RELEASE.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/spring-core-5.1.10.RELEASE.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/spring-jdbc-5.1.10.RELEASE.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.38.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/spring-beans-5.1.10.RELEASE.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.9.4-tests.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.9.4-javadoc.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.9.4-sources.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/commons-beanutils-1.9.4-test-sources.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/el-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/jasper.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/jsp-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/catalina.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/ecj-4.12.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/jasper-el.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/jaspic-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-jni.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/catalina-ha.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/servlet-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-dbcp.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-jdbc.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-util.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/catalina-ant.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-coyote.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/websocket-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-cs.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-de.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-es.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-fr.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-ja.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-ko.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-ru.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/annotations-api.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/catalina-tribes.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-util-scan.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-websocket.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-pt-BR.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/tomcat-i18n-zh-CN.jar" />
+          <element id="file-copy" path="D:/Tomcat9/lib/catalina-storeconfig.jar" />
+          <element id="library" level="project" name="lib" />
+          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.1.10" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.38" />
+          <element id="library" level="project" name="Maven: org.jetbrains:annotations-java5:18.0.0" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="Real/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

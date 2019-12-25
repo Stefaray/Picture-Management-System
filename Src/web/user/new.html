@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>图库管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <!-- <link rel='stylesheet prefetch' href='css/check_bgc.css'>
+    <link rel="stylesheet" href="css/check_style.css" media="screen" type="text/css" /> -->
+
+    <link rel="stylesheet" href="css/zerogrid.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/lightbox.css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="assets/css/picture_main.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arimo:400,600,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loader-style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/progress-bar/number-pb.css">
+
+
+
+    <script src="assets/js/jquery1111.min.js" type="text/javascript"></script>
+    <script src="assets/js/script.js"></script>
+
+    <style type="text/css">
+        canvas#canvas4 {
+            position: relative;
+            top: 20px;
+        }
+
+        .caname {
+            /* background-color:skyblue; */
+            color: gray;
+            margin-left: 10px;
+
+        }
+
+        .before_caname {
+            color: whitesmoke;
+        }
+
+        .total {
+            margin: 5px 0 5px 10px;
+        }
+
+        /* //:focus选择器,选择获得焦点的输入字段，并设置其样式： */
+        input:focus {
+            border: 1px solid blue;
+            background-color: rgb(41, 41, 41);
+        }
+
+        .caname:hover {
+            background-color: rgb(43, 43, 43);
+        }
+
+        .img-wrap {
+            position: relative;
+            display: inline-block;
+            border: 1px red solid;
+            font-size: 0;
+        }
+
+        .img-wrap .close {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 100;
+            background-color: #FFF;
+            padding: 5px;
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: .2;
+            text-align: center;
+            font-size: 22px;
+            line-height: 10px;
+            border-radius: 50%;
+        }
+
+        .img-wrap:hover .close {
+            /* color: red; */
+            opacity: 1;
+        }
+        .close:hover {
+            color: red;
+            opacity: 1;
+        }
+    </style>
+    <!-- 文件夹布局 -->
+    <style type="text/css">
+        .file {
+            margin: 20px;
+            float: left;
+            position: relative;
+            width: 100px;
+            height: 110px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, 0);
+            /*background: url(img/file.png) no-repeat center 25px;*/
+            cursor: pointer;
+        }
+
+        .file input {
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            display: none;
+        }
+
+        .fileName {
+            position: absolute;
+            left: 5px;
+            bottom: 10px;
+            width: 90px;
+            font: 12px/20px Arial, "宋体";
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fileShow {
+            border: 1px solid #000;
+            background-color: #f1f1f1;
+        }
+
+        .fileShow input {
+            display: block;
+        }
+
+        .info {
+            position: fixed;
+            left: 400px;
+            top: 0;
+            width: 40%;
+            height: 50px;
+            font: 30px/50px "宋体";
+            color: white;
+            text-align: center;
+            transform: translateY(-50px);
+            /* background: #ccc; */
+        }
+
+        #Save {
+            width: 60px;
+            height: 30px;
+            background-color: skyblue;
+        }
+    </style>
+
+    <style type="text/css">
+        /*预先写好弹出窗的样式*/
+        #menu {
+            height: 900px;
+        }
+
+        #close {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            text-indent: -999em;
+            background-color: white;
+        }
+
+        #mask {
+            background-color: skyblue;
+            opacity: 0;
+            filter: alpha(opacity=50);
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        #login {
+            position: fixed;
+            z-index: 2;
+        }
+
+        .loginCon {
+            position: relative;
+            /* opacity: 0.8; */
+            width: 1370px;
+            height: 650px;
+            /*background:url(img/loginBg.png) #2A2C2E center center no-repeat;*/
+            background-color: #ccc;
+        }
+
+
+
+
+
+        /* 表格样式 */
+
+
+        #Main {
+            width: 1200px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        table {
+            background-color: rgb(120, 120, 131);
+            width: 1200px;
+            border-collapse: collapse;
+            text-align: left;
+            margin: 10px 5px 5px 10px;
+            cursor: default;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.75);
+            border: 1px solid rgba(127, 255, 255, 0.75);
+            -webkit-box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.75);
+            -moz-box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.75);
+            box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.75);
+        }
+
+        .tbTitle>th {
+            font-weight: 300;
+            /* text-align: center; */
+            padding: 10px 0 10px 8px;
+            font: bold 15px "微软雅黑", Arial, Helvetica, sans-serif;
+            background-color: rgba(0, 93, 93, 0.8);
+            color: #efefef;
+            text-shadow: 0px 0px 20px rgba(127, 255, 255, 1);
+        }
+
+        th,
+        td {
+            border: 1px solid rgba(127, 255, 255, 0.55) !important;
+        }
+
+        .tbContext:hover {
+            background-color: rgba(0, 99, 99, 0.9) !important;
+        }
+
+        td,
+        td>a {
+            font: 15px "微软雅黑", Arial, Helvetica, sans-serif !important;
+            /* text-align: center; */
+            padding: 6px 0 6px 8px !important;
+            color: rgba(127, 255, 255, 0.75);
+            text-shadow: 0px 0px 20px rgba(0, 255, 255, 0.75);
+        }
+    </style>
+    <!-- 用户日志 -->
+    <style type="text/css">
+        .main {
+            width: 800px;
+            zoom: 1;
+            margin: 0 auto;
+        }
+
+        .item {
+            width: 800px;
+            overflow: hidden;
+        }
+
+        .clear {
+            zoom: 1;
+        }
+
+        .clear:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+
+
+        .page_btn {
+            padding-top: 20px;
+        }
+
+        .page_btn a {
+            cursor: pointer;
+            padding: 5px;
+            border: solid 1px #ccc;
+            font-size: 12px;
+        }
+
+        .page_box {
+            float: right;
+        }
+
+        .num {
+            padding: 0 10px;
+        }
+        .img-wrap .download {
+            position: absolute;
+            /* top: 2px;
+            left: 2px; */
+            z-index: 100;
+            background-color: #FFF;
+            padding: 5px;
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: .2;
+            /* text-align: center; */
+            float: left;
+            font-size: 22px;
+            line-height: 10px;
+            border-radius: 50%;
+        }
+        .download{
+            float: left;
+        }
+
+        .download :hover{
+            color: red;
+            opacity: 1;
+        }
+
+    </style>
+
+
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/minus.png">
+    <script>
+        var USER;
+        var BASE_PATH;
+        $.ajax({
+            url:"initServlet",
+            type:"POST",
+            success:function (result) {
+                result=JSON.parse(result);
+                // alert(result.username);
+                // alert(result.basePath);
+                USER=result.username;
+                BASE_PATH=result.basePath;
+                var USER_NAME =document.getElementsByClassName("USER_NAME") ;
+                for(var i=0; i<USER_NAME.length; i++){
+                    USER_NAME[i].innerHTML = USER;
+                }
+            }
+        });
+
+
+
+    </script>
+
+
+</head>
+
+<body>
+    <div class="info"></div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- TOP NAVBAR -->
+    <nav role="navigation" class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle"
+                    type="button">
+                    <span class="entypo-menu"></span>
+                </button>
+                <button class="navbar-toggle toggle-menu-mobile toggle-left" type="button">
+                    <span class="entypo-list-add"></span>
+                </button>
+
+                <form action="../uploadTestServlet" enctype="multipart/form-data" id="loginform" name="loginform"
+                    method="post">
+                    <input type="file" multiple name="filename" id="fileElem" style="display: none" onchange="go()" />
+                    <input id="subid" name="subid" type="submit" value="提交" style="display: none" >
+                </form>
+
+                <script>
+
+
+                    
+                    function go() {
+
+                        // alert(folders);
+                        // var imgs=[{name:"ds",size:"12"},{name:"abc",size:"123"}];
+
+                        // 获取文件
+                        var f = document.getElementById("fileElem").files;
+                        var Second = document.getElementById("Second");
+                        //上传的文件名称
+                        var load_file = Second.innerHTML;
+
+
+                        var imgs = Array(f.length);
+                        // alert(imgs.length);
+                        // 获取文件后缀
+                        for (var i = 0; i < f.length; i++) {
+                            //图片信息
+                            // imgs[i] = {
+                            //     name: "",          //名称
+                            //     user: "",
+                            //     type: "",          //文件类型
+                            //     creat_time: "",    //上传时间
+                            //     shape: "",
+                            //     size: "",          //字节
+                            //     edit_time: "",     //修改时间
+                            //     resolution: "",
+                            //     longitude: "",
+                            //     latitude: "",
+                            //     location: "",
+                            //     pick_time: "",
+                            //     pick_time_long: "",
+                            //     scale: "",
+                            //     type_star: "",
+                            //     type_nation: "",
+                            //     dir:""
+                            // };
+                            imgs[i]=new Object();
+                            var suffixname = f[i].name.substr(f[i].name.lastIndexOf(".")).toLowerCase();
+                            var Cdate = new Date();
+                            var EditTime = f[i].lastModifiedDate.toLocaleString().split(" ");
+                            var CreatTime = Cdate.toLocaleString().split(" ");
+                            //获取文件上传时间
+                            imgs[i].creat_time = CreatTime[0];
+                            //上次修改时间  
+                            imgs[i].edit_time = EditTime[0];
+                            // 名称
+                            imgs[i].name = f[i].name;
+                            // alert(f[i].name);
+                            //大小 字节  
+                            imgs[i].size = parseInt(f[i].size / 1024) + "KB";
+                            //类型  
+                            imgs[i].type = f[i].type;
+                            imgs[i].dir=load_file;
+                            // 文件后缀名
+                            // alert("[文件后缀名]" + suffixname);
+
+                        }
+
+                        $.ajax({
+                            url: "../uploadTestServlet",
+                            data: {
+                                "dir": load_file,
+                                "imgs": JSON.stringify(imgs)
+                            },
+                            dataType: "JSON",
+                            type: "POST",
+
+                            success: function (data) {
+                                //待完成...
+                                // var card_columns = document.getElementById("card-columns");
+                                // card_columns.innerHTML += single(load_file,data[0]);
+                            },
+                            error: function (data) {
+                                // alert("响应失败");
+                            }
+                        });
+
+                        $('#subid').click();
+
+
+
+                    }
+                </script>
+
+            </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <!-- help圆圈键 -->
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><i data-toggle="tooltip" data-placement="bottom" title="帮助" style="font-size:20px;"
+                                class="icon-help tooltitle"></i></a>
+                    </li>
+                </ul>
+
+
+
+                <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" class="admin-pic img-circle" src="assets/img/ray.jpg"> <strong class="USER_NAME"></strong> <b
+                                class="caret"></b>
+                        </a>
+                        <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
+                            <li>
+                                <a href="#">
+                                    <span class="entypo-user"></span>&#160;&#160;个人简介</a>
+                            </li>
+
+                            <li class="divider"></li>
+                            <li>
+                                <a
+                                    href="../logoutServlet">
+                                     <span class="entypo-logout"></span>&#160;&#160; 退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="theme">
+                            <span class="icon-star"></span>&#160;&#160;主题</a>
+                        <ul role="menu" class="dropdown-setting dropdown-menu">
+
+                            <li class="theme-bg">
+                                <div id="button-bg"></div>
+                                <div id="button-bg2"></div>
+                                <div id="button-bg3"></div>
+                                <div id="button-bg5"></div>
+                                <div id="button-bg6"></div>
+                                <div id="button-bg7"></div>
+                                <div id="button-bg8"></div>
+                                <div id="button-bg9"></div>
+                                <div id="button-bg10"></div>
+                                <div id="button-bg11"></div>
+                                <div id="button-bg12"></div>
+                                <div id="button-bg13"></div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="hidden-xs" id="hidden-xs">
+                        <a class="toggle-left" href="#">
+                            <span style="font-size:20px;" class="entypo-list-add"></span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- /END OF TOP NAVBAR -->
+
+    <!-- SIDE MENU -->
+    <div id="skin-select">
+        <div id="logo">
+            <h1 style="font:  bold 25px arial,sans-serif;">图片管理</h1>
+        </div>
+
+        <a id="toggle">
+            <span class="entypo-menu"></span>
+        </a>
+        <div class="dark">
+            <form action="#">
+                <span>
+                    <input type="text" name="search" value="" class="search rounded id_search" placeholder="在导航栏中搜索..."
+                        autofocus="">
+                </span>
+            </form>
+        </div>
+
+        <div class="search-hover">
+            <form id="demo-2">
+                <input type="search" placeholder="搜索..." class="id_search">
+            </form>
+        </div>
+
+
+
+
+        <div class="skin-part">
+            <div id="tree-wrap">
+                <div class="side-bar">
+                    <ul id="menu-showhide" class="topnav menu-left-nest">
+                        <li>
+                            <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
+
+                                <!-- <span class="component"></span> -->
+                                <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+
+                            </a>
+                        </li>
+
+
+
+                        <li>
+                            <a class="tooltip-tip" href="#" title="图片广场" id="ray">
+                                <i class="icon-camera"></i>
+                                <span>图片广场</span>
+                            </a>
+                            <ul id="ul_public">
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="卫星"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>卫星</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="城市"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>城市</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="动物"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>动物</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="美食"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>美食</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="水果"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>水果</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="生活"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>生活</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="乡村"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>乡村</span></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="自然"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-folder"></i><span>自然</span></a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="tooltip-tip" href="#" title="用户仓库" id="user_storge">
+                                <i class="icon-cloud"></i>
+                                <span>用户仓库</span>
+                            </a>
+
+                            <ul id="ul_folders">
+                                <li id="add_folder" class="creat">
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="Table Dynamic"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-plus"></i><span>新建文件夹</span></a>
+                                </li>
+                                <li id="delete_folder" class="del">
+                                    <a class="tooltip-tip2 ajax-load" href="#"
+                                        title="Table Dynamic"><span>&nbsp;&nbsp;&nbsp;</span><i
+                                            class="icon-trash"></i><span>删除文件夹</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="tooltip-tip" href="#" title="用户日志" id="diary">
+                                <i class="icon-user"></i>
+                                <span>用户日志</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF SIDE MENU -->
+
+
+
+    <!--  PAPER WRAP -->
+    <div class="wrap-fluid" id="wrap-fluid">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <!-- CONTENT -->
+            <!--TITLE -->
+            <div class="row">
+
+                <div id="paper-top">
+                    <div class="col-lg">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="tittle-middle-header">
+
+                            <div class="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span class="tittle-alert entypo-info-circled">
+                                    欢迎回来,&nbsp;<strong class="USER_NAME"></strong>&nbsp;&nbsp;</span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--/ TITLE -->
+
+            <!-- BREADCRUMB -->
+            <ul id="breadcrumb">
+                <li><span class="entypo-home"></span></li>
+                <li><i class="fa fa-lg fa-angle-right"></i></li>
+                <li><a href="index.html" title="Sample page 1" id="Home">Home</a></li>
+                <li><i class="fa fa-lg fa-angle-right"></i></li>
+                <li><a href="#" title="Sample page 1" id="First">图片广场</a></li>
+                <li class="pull-right" id="pull-right">
+                    <div class="input-group input-widget">
+
+                        <input style="border-radius:15px" type="text" placeholder="在图库中搜索..."
+                            class="form-control picture_search">
+                    </div>
+                </li>
+            </ul>
+
+            <div id="picture_container" class="menu-picture-nest">
+                <div class="page-content">
+                    <div class="container">
+                        <div class="container px-0">
+                            <div class="pp-gallery">
+                                <div class="card-columns" id="card-columns">
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid "
+                                                src="assets/images/picture/GPS/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">卫星</div>
+                                                <p>GPS</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/food/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">美食</div>
+                                                <p>Food</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/village/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">乡村</div>
+                                                <p>Village</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/city/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">城市</div>
+                                                <p>City</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/fruit/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">水果</div>
+                                                <p>Fruit</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/nature/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">自然</div>
+                                                <p>Nature</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/animal/1.jpg" alt="Nature" />
+                                            <figcaption>
+                                                <div class="h4">动物</div>
+                                                <p>Animal</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card" data-groups="[&quot;people&quot; , &quot;nature&quot;]">
+                                        <figure class="pp-effect"><img class="img-fluid"
+                                                src="assets/images/picture/life/1.jpg" alt="People" />
+                                            <figcaption>
+                                                <div class="h4">生活</div>
+                                                <p>Life</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pp-section"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END OF BREADCRUMB -->
+
+
+
+
+            <!--  DEVICE MANAGER -->
+
+            <!--  / DEVICE MANAGER -->
+
+            <div class="content-wrap">
+
+                <div id="footer"></div>
+
+            </div>
+        </div>
+        <!-- END OF PAPER WRAP -->
+        <!-- RIGHT SLIDER CONTENT -->
+        <div class="sb-slidebar sb-right">
+            <!-- 右边导航条上面部分 -->
+            <div class="right-wrapper" id="right-wrapper" style="text-align: center; vertical-align: middle;  ">
+
+
+            </div>
+            <!-- 右边导航条下面部分  -->
+            <div style="margin-top:0; height:550px;" class="right-wrapper" id="right-wrapper_bottom">
+
+
+                <div class="row">
+                    <!-- <input type="text"></input> -->
+                    <!-- 432413241324 -->
+
+
+                </div>
+            </div>
+        </div>
+        <!-- <input type="file" id="fileElem" multiple accept="image/*" style="display:none"
+            onchange="handlefiles(this.files)"> -->
+        <div style="display: none;" id="hahaha">
+            <div id="Demo" style="height: 67px; max-height: 989px;">
+                <div id="Main">
+                    <table>
+                        <tr class="tbTitle">
+                            <th>用户</th>
+                            <th>操作</th>
+                            <th>时间</th>
+                        </tr>
+
+                        <tbody id="Tbody">
+
+                        </tbody>
+                    </table>
+                    <!-- class="page_btn clear" -->
+<!--                    <div class="page_btn ">-->
+<!--                        <span class="page_box">-->
+<!--                            <a class="prev">上一页</a>-->
+<!--                            <span class="num">-->
+<!--                                <span class="current_page">1</span>-->
+<!--                                <span style="padding:0 3px;">/</span>-->
+<!--                                <span class="total"></span>-->
+<!--                            </span>-->
+<!--                            <a class="next">下一页</a>-->
+<!--                        </span>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+
+
+        
+
+
+
+        <script src='js/check_libs.min.js'></script>
+
+        <script src="js/check_index.js"></script>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/lightbox-plus-jquery.min.js"></script>
+        <!-- END OF RIGHT SLIDER CONTENT-->
+        <script type="text/javascript" src="assets/js/jquery.js"></script>
+        <script src="assets/js/progress-bar/src/jquery.velocity.min.js"></script>
+        <script src="assets/js/progress-bar/number-pb.js"></script>
+        <script src="assets/js/progress-bar/progress-app.js"></script>
+
+
+
+        <!-- MAIN EFFECT -->
+        <script type="text/javascript" src="assets/js/preloader.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="assets/js/app.js"></script>
+        <script type="text/javascript" src="assets/js/load.js"></script>
+        <script type="text/javascript" src="assets/js/main.js"></script>
+
+
+
+
+        <!-- GAGE -->
+
+
+        <script type="text/javascript" src="assets/js/chart/jquery.flot.js"></script>
+        <script type="text/javascript" src="assets/js/chart/jquery.flot.resize.js"></script>
+        <script type="text/javascript" src="assets/js/chart/realTime.js"></script>
+        <script type="text/javascript" src="assets/js/speed/canvasgauge-coustom.js"></script>
+        <script type="text/javascript" src="assets/js/countdown/jquery.countdown.js"></script>
+
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="assets/js/picture_main.js"></script>
+
+        <script src="assets/js/jhere-custom.js"></script>
+
+        <script>
+            var bar_element = '<li><span class="entypo-home"></span></li>' +
+                '<li><i class="fa fa-lg fa-angle-right"></i></li>' +
+                '<li><a href="index.html" title="Sample page 1" id="Home">Home</a></li>' +
+                '<li><i class="fa fa-lg fa-angle-right"></i></li>' +
+                '<li><a href="#" title="Sample page 1" id="First">图片广场</a></li>' +
+                '<li class="pull-right">' +
+                '<div class="input-group input-widget">' +
+                '<input style="border-radius:15px" type="text" placeholder="在图库中搜索..." class="form-control picture_search">' +
+                '</div>' +
+                '</li>';
+
+
+            var pic_layout_top = '<div class="page-content">' +
+                '<div class="container">' +
+                '<div class="container px-0">' +
+                '<div class="pp-gallery">' +
+                '<div class="card-columns" id="card-columns">';
+            var pic_layout_bottom = '</div>' +
+                '</div>' +
+                '</div><div class="pp-section"></div>' +
+                '</div>' +
+                '</div>';
+            //用户日志
+            var diary = document.getElementById("diary");
+            diary.onclick = function () {
+
+                var picture_container = document.getElementById("picture_container");
+                picture_container.innerHTML = "";
+
+                var breadcrumb = document.getElementById("breadcrumb");
+                var bar_tmp = bar_element;
+                bar_tmp = bar_tmp.replace("图片广场", "用户日志");
+                breadcrumb.innerHTML = bar_tmp;
+
+                var hahaha = document.getElementById("hahaha");
+                picture_container.innerHTML = hahaha.innerHTML;
+
+                $("#Tbody tr:gt(49)").hide();//初始化，前面4条数据显示，其他的数据隐藏。
+                var Tbody = document.getElementById("Tbody");
+                var total_q = Tbody.children.length;
+                // var total_q = $("#Tbody tr").index() + 1;//总数据
+                var current_page = 50;//每页显示的数据
+                var current_num = 1;//当前页数
+                var total_page = Math.round(total_q / current_page + 0.5);//总页数
+                var next = $(".next");//下一页
+                var prev = $(".prev");//上一页
+                $(".total").text(total_page);//显示总页数
+                $(".current_page").text(current_num);//当前的页数
+
+                //下一页
+                $(".next").click(function () {
+                    if (current_num == total_page) {
+                        return false;//如果大于总页数就禁用下一页
+                    }
+                    else {
+                        $(".current_page").text(++current_num);//点击下一页的时候当前页数的值就加1
+                        $.each($('#Tbody tr'), function (index, item) {
+                            var start = current_page * (current_num - 1);//起始范围
+                            var end = current_page * current_num;//结束范围
+                            if (index >= start && index < end) {//如果索引值是在start和end之间的元素就显示，否则就隐
+                                $(this).show();
+                                $(this).removeAttr("id");
+                                $(this).attr('id',"yes");
+                                // this.className = show;
+                            } else {
+                                $(this).hide();
+                                $(this).removeAttr("id");
+                                $(this).attr('id',"no");
+                                // this.className = hide;
+                            }
+                        });
+                    }
+                });
+                //上一页方法
+                $(".prev").click(function () {
+
+                    if (current_num == 1) {
+                        return false;
+                    } else {
+                        $(".current_page").text(--current_num);
+                        $.each($('#Tbody tr'), function (index, item) {
+                            var start = current_page * (current_num - 1);//起始范围
+                            var end = current_page * current_num;//结束范围
+                            if (index >= start && index < end) {//如果索引值是在start和end之间的元素就显示，否则就隐藏
+                                $(this).show();
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+                    }
+
+                });
+
+                $.ajax({
+                    url: '../getRecordServlet',
+                    type: "GET",
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        var tbody = document.getElementById("Tbody");
+                        // alert(data.length);
+                        for (var i = 0; i < data.length; i++) {
+                            // alert(data[i]);
+                            var tr = document.createElement("tr");
+                            tr.className = "tbContext";
+                            var tmp_data = data[i].split(" ");
+                            tr.innerHTML = '<td>' + tmp_data[0] + '</td><td>' + tmp_data[1] + '</td><td>' + tmp_data[2] + '</td>';
+                            tbody.appendChild(tr);
+                        }
+                    }
+                    });
+                // var data= JSON.stringify(["771 a341 231a","2 2 2"]);
+
+
+                //     },
+                //     error: function (err) {
+                //         // alert('连接失败');
+                //     }
+                // });
+
+            }
+            var judge = 0;
+            // 保存文件夹页面
+            var folderPage = "";
+            // var folderSilder = '<li id="add_folder" class="creat">'+
+            //                             '<a class="tooltip-tip2 ajax-load" href="#"'+
+            //                                 'title="Table Dynamic"><span>&nbsp;&nbsp;&nbsp;</span><i'+
+            //                                     'class="icon-plus"></i><span>新建文件夹</span></a>'+
+            //                         '</li>'+
+            //                         '<li id="delete_folder" class="del">'+
+            //                             '<a class="tooltip-tip2 ajax-load" href="#"'+
+            //                                 'title="Table Dynamic"><span>&nbsp;&nbsp;&nbsp;</span><i'+
+            //                                     'class="icon-trash"></i><span>删除文件夹</span></a>'+
+            //                         '</li>';
+            var folderSilder = "";
+            //创建系统存储文件夹和图片的数组
+            var folders = [];
+
+
+            //文件属性
+            var fileAttributes = [];
+            var pictureAttributes = [];
+            for (var i = 0; i < 16; i++) {
+                pictureAttributes[i] = "可编辑...&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            var fileAttributesCode =
+                ' <p style="font:  bold 25px arial,sans-serif; color: white;">文件属性</p>' +
+                '<ul style="list-style: none; " >' +
+                '<li class="total"><span class="before_caname">图片名称</span><span class="caname" >可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li  class="total"><span class="before_caname">图片类型</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">创建日期</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">修改日期</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">图片大小</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">图片尺寸</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">图分辨率</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">图片国别</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">具体位置</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">图片经度</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">图片纬度</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">采集时间</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">采集时长</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">比例尺数</span>&nbsp;&nbsp;&nbsp;1:<span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '<li class="total"><span class="before_caname">卫星类别</span><span class="caname">可编辑...&nbsp;&nbsp;&nbsp;&nbsp;</span></li>' +
+                '</ul>' +
+                '<button id="Save">保存</button>';
+
+
+            //主要变换页面容器
+            var picture_container = document.getElementById("picture_container");
+            //更换到文件夹主界面的函数
+            function main_folder_page() {
+                var picture_container = document.getElementById("picture_container");
+                return picture_container.innerHTML;
+            }
+            //更换到文件夹主导航条的函数
+            function main_folder_silder() {
+                var ul_folders = document.getElementById("ul_folders");
+                return ul_folders.innerHTML;
+            }
+            //集成图片广场的组件
+            function single2(theme, name) {
+                // var individual = document.getElementById("individual");
+                var code = '<div class="card right_click" data-groups="[&quot;nature&quot;]">' +
+                    '<figure class="pp-effect">' +
+                    '<a class="example-image-link" data-lightbox="example-set" href="assets/images/picture/' + theme + "/" + name + '" >' +
+                    '<div class="zoom-container">' +
+                    '<div class="zoom-caption">' +
+                    '<div class="caption-inner">' +
+                    '<div class="caption-inner1">' +
+                    '<i class="fa fa-eye"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    // '<span class="close" >&times;</span>'+
+                    '<img class="example-image  img-fluid " src="assets/images/picture/' + theme + "/" + name + '" />' +
+                    '<span class="word">' + name + '</span>' +
+                    '<span style="display:none">' + theme + '</span>' +
+                    '</div>' +
+                    '</a>' +
+                    '</figure>' +
+                    '</div>';
+                return code;
+
+            }
+            function single(theme, name) {
+
+                // var individual = document.getElementById("individual");
+                var code =
+                    '<div class="card right_click" data-groups="[&quot;nature&quot;]">' +
+                    '<figure class="pp-effect">' +
+                    '<a class="example-image-link" data-lightbox="example-set" href="assets/images/picture/' + theme + "/" + name + '" >' +
+                    '<div class="zoom-container">' +
+                    '<div class="zoom-caption">' +
+                    '<div class="caption-inner">' +
+                    '<div class="caption-inner1">' +
+                    '<i class="fa fa-eye"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    // '<span class="close" >&times;</span>'+
+                    '<img class="example-image  img-fluid " src="assets/images/picture/' + theme + "/" + name + '" />' +
+                    '<span class="word" >' + name + '</span>' +
+                    '<span style="display:none">' + theme + '</span>' +
+                    '<span style="display:none;"></span>' +
+                    '</div>' +
+                    '</a>' +
+                    '<span class="close" ><i class="icon-trash"></i></span>' +
+                    '<a href="#" download="assets/images/picture/'+theme+ "/" + name +'"><span class="download" ><i class="icon-download"></i></span></a>'+
+                    '</figure>' +
+                    '</div>';
+                return code;
+
+            }
+
+            function single3(theme, name, attr,path) {
+
+                // var individual = document.getElementById("individual");
+                // href="assets/images/picture/' + theme + "/" + name + '"
+                var code =
+                    '<div class="card right_click" data-groups="[&quot;nature&quot;]">' +
+                    '<figure class="pp-effect">' +
+                    '<a class="example-image-link" data-lightbox="example-set" href='+JSON.stringify(path)+' >' +
+                    '<div class="zoom-container">' +
+                    '<div class="zoom-caption">' +
+                    '<div class="caption-inner">' +
+                    '<div class="caption-inner1">' +
+                    '<i class="fa fa-eye"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    // '<span class="close" >&times;</span>'+
+                    '<img class="example-image  img-fluid " src='+JSON.stringify(path)+' />' +
+                    '<span class="word" >' + name + '</span>' +
+                    '<span style="display:none">' + theme + '</span>' +
+                    '<span style="display:none;">' + attr + '</span>' +
+                    '</div>' +
+                    '</a>' +
+                    // ×号
+                    '<span class="close" ><i class="icon-trash"></i></span>' +
+                    //下载图片
+                    '<a href="#" download="'+path+'"><span class="download" ><i class="icon-download"></i></span></a>'+
+                    '</figure>' +
+                    '</div>';
+                // alert(code);
+                return code;
+
+            }
+            // $('.img-wrap .close').on('click', function() {
+            //     // var id = $(this).closest('.img-wrap').find('img').data('id');
+            //     // alert('remove picture: ' +id);
+            //     alert(1);
+
+            // });
+
+            //***************//
+            //  删除图片功能  //
+            //***************//
+            function DELETE_PICTURE() {
+
+                var str = document.getElementsByClassName("close");
+                for (var i = 1; i < str.length; i++) {
+                    str[i].onclick = function () {
+
+                        var node = this.parentNode.parentNode;
+                        var parent_node = node.parentNode;
+                        if (confirm("确定删除图片 " + this.previousSibling.firstChild.children[2].innerHTML + "  吗？")) {
+                            var Pname = this.previousSibling.firstChild.children[2].innerHTML;//要删除的图片名称
+                            var Fname = this.previousSibling.firstChild.children[3].innerHTML;//要删除的文件夹名称
+                            //删除图片ajax
+                            // alert("123");
+                            $.ajax({
+                                url: '../deleteImageServlet',
+                                data: { "dir":Fname,"img_name":Pname },
+                                dataType: "JSON",
+                                type: "GET",
+                                success: function (data) {
+
+
+                                },
+                                error: function (err) {
+                                    // alert('连接失败');
+                                }
+                            });
+                            parent_node.removeChild(node);
+                        }
+
+
+                    }
+                }
+
+            }
+
+
+
+
+            //点击用户仓库
+            var str2 = "";
+            var user_storge = document.getElementById("user_storge");
+            var ul_folders = document.getElementById("ul_folders");
+            var newdelete = ul_folders.innerHTML;
+            user_storge.onclick = function () {
+
+                $.ajax({
+                    url: '../getDirServlet',
+                    data: { "username": USER },
+                    dataType: "JSON",
+                    type: "GET",
+                    success: function (data) {
+
+                dirs=data.dirs;
+                        // alert("321");
+
+                var picture_container = document.getElementById("picture_container");
+                var str2 = '<div class="wrap" id="wrap">' +
+                    '</div>';
+                picture_container.innerHTML = str2;
+                var wrap = document.getElementById("wrap");
+
+                var silder = "";
+
+                folders = [];
+
+                for (var i = 0; i < dirs.length; i++) {
+                    var tmp = '<div class="file" >' +
+                        '<input type="checkbox" name="">' +
+                        '<span class="fileName" contenteditable="">新建文件夹4</span>' +
+                        '<span>&nbsp;&nbsp;</span></span>' +
+                        '<img src="assets/img/folder.png">' +
+                        '</div>';
+                    var final_tmp = tmp.replace("新建文件夹4", dirs[i]);
+                    wrap.innerHTML += final_tmp;
+                    silder += "<li><a class='tooltip-tip2 ajax-load' href='#'' title='" + dirs[i] + "'<span>&nbsp;&nbsp;&nbsp;</span><i class='icon-folder'></i><span>" + dirs[i] + "</span></a></li>";
+                    folders.push(dirs[i]);
+                }
+
+                silder += newdelete;
+                // alert(1);
+                var ul_folders = document.getElementById("ul_folders");
+                ul_folders.innerHTML = silder;
+
+                hotfit();
+
+                hotfit2();
+                judge = 0;
+                New();
+                Delete();
+
+                var breadcrumb = document.getElementById("breadcrumb");
+                var bar_tmp = bar_element;
+                bar_tmp = bar_tmp.replace("图片广场", "用户仓库");
+                breadcrumb.innerHTML = bar_tmp;}
+
+                });
+                //ajax结束了
+            }
+
+
+            //*******************************//
+            //          新建文件夹            //
+            //*******************************//
+            var i = 0;
+            setInterval(function () {
+                var tmp = main_folder_silder();
+                if (tmp.indexOf("上传图片") == -1) {
+                    folderSilder = tmp;
+                }
+            }, 100)
+            function New() {
+
+                var add_folder = document.getElementById("add_folder");
+                add_folder.onclick = function () {
+                    //判断文件夹是否重名
+                    // alert(folders.length);
+                    // for(var i=0; i<folders.length; i++){
+                    //     alert(folders[i]);
+                    // }
+
+                    var kk = 0;
+                    var test = "";
+                    while (true) {
+
+                        var myBoolean = new Boolean();
+                        myBoolean = false;
+                        if (kk == 0)
+                            test = prompt("请输入新的文件夹名称：");
+                        else
+                            test = prompt("文件夹重名，请输入新的文件夹名称：");
+                        for (var i = 0; i < folders.length; i++) {
+                            if (folders[i] == test) {
+                                myBoolean = true;
+                                break;
+                            }
+                        }
+                        kk++;
+                        if (myBoolean == false)
+                            break;
+                        else
+                            continue;
+
+                    }
+                    // alert(picture_container.innerHTML);
+                    // var node = "<li></li>";
+                    //增加右边的导航条栏目
+
+
+                    if (test === "" || test === null) {
+                    }
+                    else {
+
+                        folders.push(test);
+                        var node = document.createElement("li");
+                        node.innerHTML = "<a class='tooltip-tip2 ajax-load' href='#'' title='Table Dynamic'<span>&nbsp;&nbsp;&nbsp;</span><i class='icon-folder'></i><span>文件夹2</span></a>";
+                        var ul_folders = document.getElementById("ul_folders");
+                        ul_folders.insertBefore(node, add_folder);
+
+
+                        var wrap = document.querySelector('.wrap');
+                        // alert(wrap.innerHTML);
+                        var info = document.querySelector('.info');
+                        var timer = 0;
+                        /* 创建元素，并添加事件 */
+                        var file = document.createElement('div');
+                        // var fileName = getFileName();
+                        fileName = test;
+
+                        // alert(fileName);
+                        //左边导航栏增加块
+                        // var add_folder = document.getElementById("add_folder");
+                        // alert(fileName);
+                        add_folder.previousSibling.innerHTML = "<li><a class='tooltip-tip2 ajax-load' href='#' title='" + fileName + "' ><span>&nbsp;&nbsp;&nbsp;</span><i class='icon-folder'></i><span>" + fileName + "</span></a></li>";
+                        // add_folder.previousSibling.innerHTML = "skjdhdkasd";
+                        // alert(add_folder.previousSibling.innerHTML);
+                        file.className = "file";
+
+                        file.innerHTML = '<input type="checkbox" name=""><span class="fileName" contenteditable>' + fileName + '</span>';
+                        file.innerHTML += '<span>&nbsp;&nbsp;</span><img src="assets/img/folder.png" />';
+
+                        wrap.appendChild(file);
+                        //复制整个页面
+                        folderPage = picture_container.innerHTML;
+
+                        hotfit();
+                        hotfit2();
+
+                    }
+
+                    alert(folders);
+                    var str = JSON.stringify(folders);
+                    var str2 = "\"dirs\":"
+                    // alert(str);
+                    // alert(2);
+                    $.ajax({
+                        url: '../postDirServlet',
+                        data: { "dirs": folders },
+                        dataType: "JSON",
+                        type: "GET",
+                        success: function (data) {
+
+                        },
+                        error: function (err) {
+                            // alert('连接失败');
+                        }
+                    });
+                    // folderPage = picture_container.innerHTML;
+
+                }
+            }
+
+
+            //*****************//
+            // 上传图片功能     //
+            //*****************//
+            function upload() {
+                var fileSelect = document.getElementById("fileSelect"),
+                    fileElem = document.getElementById("fileElem");
+
+                fileSelect.addEventListener("click", function (e) {
+                    if (fileElem) {
+                        fileElem.click();
+                    }
+                    e.preventDefault(); // prevent navigation to "#"
+                }, false);
+            }
+
+
+            //******************//
+            // 修复文件夹的bug   //
+            //******************//
+
+            function hotfit() {
+                var wrap = document.querySelector('.wrap');
+                var str = wrap.children;
+                for (var i = 0; i < str.length; i++) {
+                    str[i].className = "file";
+
+                    str[i].onmouseover = function () {
+                        this.className = "file fileShow";
+                    };
+                    str[i].onmouseout = function () {
+                        var check = this.querySelector('input[type = "checkbox"]');
+                        if (!check.checked) {
+                            this.className = "file";
+                        }
+                        folderSilder = main_folder_silder();
+                        folderPage = main_folder_page();
+                    };
+                    var fileName = str[i].querySelector('.fileName');
+                    str[i].origin = fileName.innerHTML;
+                    var info = document.querySelector('.info');
+                    fileName.onblur = function () {
+                        if (this.innerHTML.trim() == "") {
+                            this.innerHTML = this.parentNode.origin;
+                        }
+                        var fileNames = document.querySelectorAll('.fileName');
+                        for (var i = 0; i < fileNames.length; i++) {
+                            if (this != fileNames[i] && this.innerHTML == fileNames[i].innerHTML) {
+                                this.innerHTML = this.parentNode.origin;
+                                info.innerHTML = "文件夹名字重名了，请重新输入";
+                                alert(info.innerHTML);
+
+                            }
+                        }
+                        var tmp = this.innerHTML;
+                        var child = this.parentNode;
+                        var k = 0;
+                        while ((child = child.previousSibling) != null) k++;
+                        folders[k] = tmp;
+                        var ul_folders = document.getElementById("ul_folders");
+                        ul_folders.children[k].innerHTML = '<a class="tooltip-tip2 ajax-load" href="#" title="Table Dynamic" ><span>&nbsp;&nbsp;&nbsp;</span><i class="icon-folder"></i><span>' + tmp + '</span></a>';
+
+                        // alert(this.parentNode.innerHTML);
+                        // alert(folders);
+                        //修改文件夹名称
+                        $.ajax({
+                            url: '../getDirServlet',
+                            data: { "dirs": ["a", "b", "c", "sda"] },
+                            dataType: "JSON",
+                            type: "GET",
+                            success: function (data) {
+
+
+                            },
+                            error: function (err) {
+                                // alert('连接失败');
+                            }
+                        }
+                        );
+                    };
+                    /*onkeydown 键盘按下 */
+                    fileName.onkeydown = function () {
+                        var fileName = file.querySelector('.fileName');
+                        if (this.innerHTML == "请输入名字") {
+                            this.innerHTML = "";
+                        }
+                    }
+
+
+                }
+            }
+            // var obj = {
+            //     name:"123",
+            //     password:"qwe",
+            //     account:"zxc",
+            //     un:"un"
+            // }
+            // alert(Object.values(obj));
+            var imaName="";
+            function hotfit2() {
+
+
+
+                // alert(judge);
+                // alert(judge);
+                if (judge == 0) {
+                    // alert(1);
+                    // alert(34);
+                    var wrap = document.getElementById("wrap");
+                    var str = wrap.children;
+
+                    //  var wrap = document.getElementById("wrap");
+                    for (var i = 0; i < str.length; i++) {
+                        str[i].ondblclick = function () {
+                            //双击生成图片
+                            //获得点击的文件夹名称
+                            var file_name = this.children[1].innerHTML;
+                            $.ajax({
+                                url: '../getImagesServlet',
+                                data: { "dir": file_name },
+                                dataType: "JSON",
+                                type: "GET",
+                                success: function (data) {
+                                    // alert(BASE_PATH);
+                                    // alert(JSON.stringify(data));
+                                    var code = pic_layout_top;
+                                    imaName="";
+                                    for (var i = 0; i < data.length; i++) {
+                                        // code +=
+                                        var img_path="../imageStore/"+USER+"/"+file_name+"/"+data[i].name;
+                                        var attr = Object.values(data[i]);
+                                        //得到图片名称
+                                        var pic_name = data[i].name;
+
+
+                                        imaName += "../imageStore/"+USER+"/"+file_name+"/"+pic_name;
+                                        if(i != data.length-1)
+                                            imaName += ",";
+                                        var tmp_str="";
+                                        for (var j = 0; j < attr.length; j++) {
+                                            if (j != attr.length - 1)
+                                                tmp_str += attr[j] + ",";
+                                            else
+                                                tmp_str += attr[j];
+                                        }
+                                        // alert(tmp_str);
+                                        code += single3(file_name,data[i].name,tmp_str,img_path);
+
+
+                                    }
+
+                                    code += pic_layout_bottom;
+                                    wrap.innerHTML = code;
+                                    rightClick();
+                                    DELETE_PICTURE();
+
+                                },
+                                error: function (err) {
+                                    // alert('连接失败');
+                                }
+                            });
+
+                            var ul_folders = document.getElementById("ul_folders");
+                            ul_folders.innerHTML = '<li id="fileSelect" class="creat">' +
+                                '<a class="tooltip-tip2 ajax-load" href="#" title="上传图片" ><span>&nbsp;&nbsp;&nbsp;</span><i class="icon-upload"></i><span>上传图片</span></a>' +
+                                '</li>' +
+                                '<li id="Review" class="del">' +
+                                '<a class="tooltip-tip2 ajax-load" href="#" title="图片审阅"  ><span>&nbsp;&nbsp;&nbsp;</span><i class="icon-preview"></i><span >图片审阅</span></a>' +
+                                '</li>';
+
+                            //上传图片
+                            upload();
+
+                            bar_add_second(this.children[1].innerHTML);
+                            var oBtn = document.getElementById("Review");
+
+                            oBtn.onclick = function () {
+                                // alert("123");
+                                url = "check_index.html?"+imaName;
+                                window.location.href = url;
+                                // openNew();
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            function bar_add_second(name) {
+
+                var pull_right = document.getElementById("pull-right");
+                var breadcrumb = document.getElementById("breadcrumb");
+                var li = document.createElement("li");
+                li.innerHTML = '<i class="fa fa-lg fa-angle-right"></i>';
+                breadcrumb.insertBefore(li, pull_right);
+                var lia = document.createElement("li");
+                lia.innerHTML = '<a href="#" title="Sample page 1" id="Second">' + name + '</a>';
+                breadcrumb.insertBefore(lia, pull_right);
+            }
+
+
+
+
+            // 获取文件夹名字
+            /* 
+            创建文件夹名字并进行排序
+            0 新建文件夹
+            1 新建文件夹2
+            2 新建文件夹3
+             
+            第一种情况：正常排序
+            */
+            function getFileName() {
+                var wrap = document.querySelector('.wrap');
+                var fileName = "新建文件夹";
+                var fileNameLast = "";
+                var fileNames = wrap.querySelectorAll('.fileName');
+                if (fileNames.length == 0) { //当前一个都还没有也就是创建第0个
+                    return fileName;
+                }
+                // 当中间可能删除了几个
+                /*
+                由于中间会删除再添加，所以顺序会被打乱
+                把所有的名字存入数组，然后进行排序
+                */
+                var names = [];
+                for (var i = 0; i < fileNames.length; i++) {
+                    names.push(fileNames[i].innerHTML);
+                }
+
+                names = names.filter(function (val) {
+                    var startName = val.substr(0, 5);
+                    if (startName != "新建文件夹") {
+                        return false;/*筛选掉不是已新建文件夹命名的*/
+                    }
+                    var lastName = val.substr(5);
+                    if (isNaN(lastName)) { /*筛选掉不是已新建文件夹跟随的不是数字的*/
+                        return false;
+                    }
+                    return true;
+                });
+                names.sort(function (a, b) {
+                    return a.substr(5) - b.substr(5);
+                });
+                console.log(names);
+                for (var i = 0; i < names.length; i++) {
+                    if (names[0] != fileName) {
+                        return fileName;
+                    }
+                    if (i > 0 && names[i] != fileName + (i + 1)) {
+                        return fileName + (i + 1);
+                    }
+                }
+                //当前顺序向后排列 name 就等于在当前的个数上+1
+                fileNameLast = names.length + 1;
+                fileName += fileNameLast;
+                return fileName;
+            }
+
+            //*******************************//
+            //          删除文件夹            //
+            //*******************************//
+            function Delete() {
+                // alert(folders.length);
+                // for(var i=0; i<1; i++){
+                //     alert(folders[0].folderName);
+                //     alert(folders[1].folderName);
+                //     alert(folders[2].folderName);
+                //     alert(folders[3].folderName);
+                // }
+                var del = document.querySelector('.del');
+                del.onclick = function () {
+                    var wrap = document.querySelector('.wrap');
+                    // alert(folders.length);
+                    /* 删除选中的元素 */
+                    var fileName = wrap.querySelectorAll('input:checked+.fileName');
+                    var input = wrap.getElementsByTagName("input");
+
+                    /* query方法只获取一次，dom修改了如果不重新获取，它是不会和dom同步的而get方法会时时和dom同步，dom改了get获取到的数据也会自定修改 */
+                    //console.log(fileName,input);
+                    for (var i = 0; i < fileName.length; i++) {
+                        for (var j = 0; j < wrap.children.length; j++) {
+                            if (wrap.children[j] === fileName[i].parentNode) {
+                                ul_folders.removeChild(ul_folders.children[j]);
+                                folders.splice(j, 1);
+                                break;
+                            }
+
+                        }
+                        wrap.removeChild(fileName[i].parentNode);
+                    }
+                    // console.log(fileName);
+
+                    folderPage = picture_container.innerHTML;
+
+                    //删除文件夹
+                    $.ajax({
+                        url: '../postDirServlet',
+                        data: { "dirs": folders },
+                        dataType: "JSON",
+                        type: "GET",
+                        success: function (data) {
+                        },
+                        error: function (err) {
+                            // alert('连接失败');
+                        }
+                    });
+
+                };
+
+
+            }
+            Delete();
+            //用户仓库里的文件夹点击
+            var ul_folders = document.getElementById("ul_folders");
+            function bar_add(name) {
+
+                var pull_right = document.getElementById("pull-right");
+                var breadcrumb = document.getElementById("breadcrumb");
+                breadcrumb.innerHTML = bar_element;
+                var li = document.createElement("li");
+                li.innerHTML = '<i class="fa fa-lg fa-angle-right"></i>';
+                breadcrumb.insertBefore(li, pull_right);
+                var lia = document.createElement("li");
+                lia.innerHTML = '<a href="#" title="Sample page 1" id="First">' + name + '</a>';
+                breadcrumb.insertBefore(lia, pull_right);
+            }
+
+            //实现图片广场的点击 和 图片广场里的文件夹点击
+            function picture_square() {
+                var card = document.getElementsByClassName("card");
+                var card_columns = document.getElementById("card-columns");
+                var ul_public = document.getElementById("ul_public");
+                var childArr = ul_public.children;
+
+
+
+                childArr[0].onclick = card[0].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("GPS", "1.jpg") + single("GPS", "2.jpg") + single("GPS", "3.jpg") + single("GPS", "4.jpg")
+                        + single("GPS", "5.jpg") + single("GPS", "6.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    DELETE_PICTURE();
+                    bar_add("卫星");
+
+                }
+                childArr[1].onclick = card[3].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("city", "1.jpg") + single("city", "2.jpg") + single("city", "3.jpg") + single("city", "4.jpg") +
+                        single("city", "5.jpg") + single("city", "6.jpg") + single("city", "7.jpg") + single("city", "8.jpg") +
+                        single("city", "9.jpg") + single("city", "10.jpg") + single("city", "11.jpg") + single("city", "12.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("城市");
+                }
+                childArr[2].onclick = card[6].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("animal", "1.jpg") + single("animal", "2.jpg") + single("animal", "3.jpg") + single("animal", "4.jpg") +
+                        single("animal", "5.jpg") + single("animal", "6.jpg") + single("animal", "7.jpg") + single("animal", "8.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("动物");
+                }
+                childArr[3].onclick = card[1].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("food", "1.jpg") + single("food", "2.jpg") + single("food", "3.jpg") + single("food", "4.jpg") +
+                        single("food", "5.jpg") + single("food", "6.jpg") + single("food", "7.jpg") + single("food", "8.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("美食");
+                }
+                childArr[4].onclick = card[4].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("fruit", "1.jpg") + single("fruit", "2.jpg") + single("fruit", "3.jpg") + single("fruit", "4.jpg") +
+                        single("fruit", "5.jpg") + single("fruit", "6.jpg") + single("fruit", "7.jpg") + single("fruit", "8.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("水果");
+                }
+                childArr[5].onclick = card[7].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("life", "1.jpg") + single("life", "2.jpg") + single("life", "3.jpg") + single("life", "4.jpg") +
+                        single("life", "5.jpg") + single("life", "6.jpg") + single("life", "7.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("生活");
+                }
+                childArr[6].onclick = card[2].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("village", "1.jpg") + single("village", "2.jpg") + single("village", "3.jpg") + single("village", "4.jpg") +
+                        single("village", "5.jpg") + single("village", "6.jpg") + single("village", "7.jpg") + single("village", "8.jpg") + single("village", "9.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("乡村");
+                }
+                childArr[7].onclick = card[5].onclick = function () {
+                    card_columns.innerHTML = "";
+                    var code = "";
+                    code = single("nature", "1.jpg") + single("nature", "2.jpg") + single("nature", "3.jpg") + single("nature", "4.jpg") + single("nature", "5.jpg") +
+                        single("nature", "6.jpg") + single("nature", "7.jpg") + single("nature", "8.jpg") + single("nature", "9.jpg") + single("nature", "10.jpg") + single("nature", "11.jpg");
+                    card_columns.innerHTML = code;
+                    //   alert(code);
+                    rightClick();
+                    bar_add("自然");
+                }
+
+            }
+            picture_square();
+
+
+
+            var ray = document.getElementById("ray");
+            var wrap_fluid = document.getElementById("wrap-fluid");
+
+            // var page_content = document.getElementById("page-content");
+            var str = picture_container.innerHTML;
+
+            ray.onclick = function () {
+                // alert(1);
+                picture_container.innerHTML = str;
+                picture_square();
+                var breadcrumb = document.getElementById("breadcrumb");
+                breadcrumb.innerHTML = bar_element;
+            };
+
+            //*******************//
+            //     右键点击图片   //
+            //*******************//
+            var image = new Image();
+            function rightClick() {
+
+                var right_click = document.getElementsByClassName("right_click");
+                for (var i = 0; i < right_click.length; i++) {
+
+                    right_click[i].num = i;
+                    //这一步是为了阻止右击时系统默认的弹出框
+                    right_click[i].oncontextmenu = function (e) {
+
+                        var str = this.firstChild.firstChild.firstChild.lastChild.innerHTML;
+                        // alert(str);
+                        var arr = str.split(",");
+                        // alert(arr.length);
+                        var caname = document.getElementsByClassName("caname");
+
+                        for(var l=0; l<arr.length; l++){
+                            if(arr[l] == "null" || arr[l] == "")
+                                arr[l] = "可编辑...&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        }
+
+
+
+
+                        var tmp = this;
+
+
+                        pictureAttributes[0] = this.firstChild.firstChild.firstChild.children[2].innerHTML;
+                        //   alert(pictureAttributes[0]);
+                        // alert(1)
+                        e.preventDefault();
+                        // alert(1);
+                        var address = this.firstChild.firstChild.getAttribute("href");
+
+                        var right_wrapper = document.getElementById("right-wrapper");
+                        right_wrapper.innerHTML = "<img  src='" + address + "' width=200px   / >";
+                        var right_wrapper_bottom = document.getElementById("right-wrapper_bottom");
+
+                        right_wrapper_bottom.innerHTML = fileAttributesCode;
+
+                        caname[0].innerHTML = arr[0];
+                        caname[1].innerHTML = arr[2];
+                        caname[2].innerHTML = arr[3];
+                        caname[3].innerHTML = arr[6];
+                        caname[4].innerHTML = arr[5];
+                        caname[5].innerHTML = arr[4];
+                        caname[6].innerHTML = arr[7];
+                        caname[7].innerHTML = arr[15];
+                        caname[8].innerHTML = arr[10];
+                        caname[9].innerHTML = arr[8];
+                        caname[10].innerHTML = arr[9];
+                        caname[11].innerHTML = arr[11];
+                        caname[12].innerHTML = arr[12];
+                        caname[13].innerHTML = arr[13];
+                        caname[14].innerHTML = arr[14];
+
+
+                        information();
+                        // alert(right_wrapper_bottom.innerHTML);
+                        // alert(right_wrapper.innerHTML);
+                        right_wrapper_bottom.children[1].children[0].lastChild.innerHTML = this.firstChild.firstChild.firstChild.children[2].innerHTML;
+                        // alert(this.firstChild.firstChild.firstChild.children[2].innerHTML);
+                        // alert(this.firstChild.firstChild.firstChild.children[3].innerHTML);
+
+                        //**********************//
+                        //获取文件的字节大小和尺寸//
+                        //**********************//
+
+
+
+                        var caname = document.getElementsByClassName("caname");
+
+                        var element = this.firstChild.firstChild.firstChild;
+                        var theme = element.children[3].innerHTML;
+                        var name = element.children[2].innerHTML;
+                        var address = '../imageStore/' +USER+"/"+ theme + '/' + name;
+                        // alert("path"+address);
+                        var imgSrc = address;
+                        image.src = imgSrc;
+                        var width = image.naturalWidth;
+                        var height = image.naturalHeight;
+                        var width1 = image.width;
+                        var height1 = image.height;
+
+                        // alert("width：" + width + "，height：" + height);   //6
+                        // alert("width：" + width1 + "，height：" + height1); //5
+                        caname[5].innerHTML = width1 + "×" + height1;
+                        caname[6].innerHTML = width + "×" + height;
+
+                        fetch(address).then(function (res) {
+                            return res.blob()
+                        }).then(function (data) {
+                            caname[4].innerHTML = parseInt(data.size / 1024) + 'KB';
+                        });
+
+
+                        //保存信息
+                        var Save = document.getElementById("Save");
+                        var caname = document.getElementsByClassName("caname");
+                        var old_name = caname[0].innerHTML;
+                        Save.onclick = function () {
+
+                            var obj = {
+                                name: "",          //名称
+                                user: "",
+                                type: "",          //文件类型
+                                creat_time: "",    //上传时间
+                                shape: "",
+                                size: "",          //字节
+                                edit_time: "",     //修改时间
+                                resolution: "",
+                                longitude: "",
+                                latitude: "",
+                                location: "",
+                                pick_time: "",
+                                pick_time_long: "",
+                                scale: "",
+                                type_star: "",
+                                type_nation: "",
+                                dir: ""
+                            };
+
+                            var breadcrumb = document.getElementById("breadcrumb");
+                            // var USER_NAME = document.getElementsByClassName("USER_NAME");
+                            for(var i=0;i<caname.length;i++){
+                                if(caname[i].innerHTML == "可编辑...&nbsp;&nbsp;&nbsp;&nbsp;" ){
+                                    caname[i].innerHTML="null";
+                                }
+                            }
+                            obj.name = caname[0].innerHTML;
+                            obj.size = caname[4].innerHTML;
+                            obj.type = caname[1].innerHTML;
+                            obj.creat_time = caname[2].innerHTML;
+                            obj.shape = caname[5].innerHTML;
+                            obj.edit_time = caname[3].innerHTML;
+                            obj.resolution = caname[6].innerHTML;
+                            obj.longitude = caname[9].innerHTML;
+                            obj.latitude = caname[10].innerHTML;
+                            obj.location = caname[8].innerHTML;
+                            obj.pick_time = caname[11].innerHTML;
+                            obj.pick_time_long = caname[12].innerHTML;
+                            obj.scale = caname[13].innerHTML;
+                            obj.type_star = caname[14].innerHTML;
+                            obj.type_nation = caname[7].innerHTML;
+                            obj.dir = breadcrumb.children[6].firstChild.innerHTML;
+                            // obj.name = USER_NAME[0].innerHTML;
+                            // alert(obj.name);
+                            // alert(obj.dir);
+                            for(var i=0;i<caname.length;i++){
+                                if(caname[i].innerHTML == "null" ){
+                                    caname[i].innerHTML="可编辑...&nbsp;&nbsp;&nbsp;&nbsp;";
+                                }
+                            }
+
+                            var USER_NAME = document.getElementsByClassName("USER_NAME");
+                            obj.user = USER_NAME[0].innerHTML;
+
+                            // alert(obj[0]);
+
+                            $.ajax({
+                                url: '../editImageServlet',
+                                data: { "image":JSON.stringify(obj),
+                                    "old_image_name":old_name },
+                                dataType: "JSON",
+                                type: "GET",
+                                success: function (data) {
+
+                                },
+                                error: function (err) {
+                                    // alert('连接失败');
+                                }
+                            });
+                            // var obj = information();
+                            // alert(obj);
+                            alert("保存成功");
+
+                            var new_attr = "";
+                            for (var j = 0; j < caname.length; j++) {
+                                if (caname[j].innerHTML == "可编辑...&nbsp;&nbsp;&nbsp;&nbsp;")
+                                    continue;
+                                else
+                                    new_attr += caname[j].innerHTML + ",";
+                            }
+                            tmp.firstChild.firstChild.firstChild.lastChild.innerHTML = new_attr;
+
+                        }
+                    };
+
+
+
+
+
+                }
+
+            }
+
+
+
+
+
+
+
+
+            var gauge4 = new Gauge("canvas4", {
+                'mode': 'needle',
+                'range': {
+                    'min': 0,
+                    'max': 90
+                }
+            });
+            gauge4.draw(Math.floor(Math.random() * 90));
+            var run = setInterval(function () {
+                gauge4.draw(Math.floor(Math.random() * 90));
+            }, 3500);
+        </script>
+
+
+        <script type="text/javascript">
+
+            $(window).on('load', function () {
+                $('#mapContainer').jHERE({
+                    center: [52.500556, 13.398889],
+                    type: 'smart',
+                    zoom: 10
+                }).jHERE('marker', [52.500556, 13.338889], {
+                    icon: 'assets/img/marker.png',
+                    anchor: {
+                        x: 12,
+                        y: 32
+                    },
+                    click: function () {
+                        alert('Hallo from Berlin!');
+                    }
+                })
+                    .jHERE('route', [52.711, 13.011], [52.514, 13.453], {
+                        color: '#FFA200',
+                        marker: {
+                            fill: '#86c440',
+                            text: '#'
+                        }
+                    });
+            });
+        </script>
+        <script type="text/javascript">
+            var output, started, duration, desired;
+
+            // Constants
+            duration = 5000;
+            desired = '50';
+
+            // Initial setup
+            output = $('#speed');
+            started = new Date().getTime();
+
+            // Animate!
+            animationTimer = setInterval(function () {
+                // If the value is what we want, stop animating
+                // or if the duration has been exceeded, stop animating
+                if (output.text().trim() === desired || new Date().getTime() - started > duration) {
+                    console.log('animating');
+                    // Generate a random string to use for the next animation step
+                    output.text('' + Math.floor(Math.random() * 60)
+
+                    );
+
+                } else {
+                    console.log('animating');
+                    // Generate a random string to use for the next animation step
+                    output.text('' + Math.floor(Math.random() * 120)
+
+                    );
+                }
+            }, 5000);
+        </script>
+        <script type="text/javascript">
+            $('#getting-started').countdown('2015/01/01', function (event) {
+                $(this).html(event.strftime(
+
+                    '<span>%M</span>' + '<span class="start-min">:</span>' + '<span class="start-min">%S</span>'));
+            });
+
+
+
+            // <!-- 右边导航栏编辑信息 -->
+
+            function information() {
+                $(function () {
+
+                    //获取class为caname的元素
+                    var caname = document.getElementsByClassName("caname");
+                    var bf_4 = $(caname[4]);
+                    var bf_5 = $(caname[5]);
+                    var bf_6 = $(caname[6]);
+
+                    for (var i = 0; i < caname.length; i++) {
+                        caname[i].num = i + 1;
+                        // var tmp = caname[0].innerHTML;
+                        // alert(caname[0].innerHTML);
+                        caname[i].onclick = function () {
+                            var No = this.num;
+                            // alert(this.num);
+                            // $(".caname").click(function () {
+                            var td = $(this);
+
+                            // var txt = td.text();
+                            var txt = "";
+                            if (this.num == 1 || this.num == 9 || this.num == 13)
+                                var input = $("<input type='text' value='" + txt + "'/>");
+                            else if (this.num == 12)
+                                var input = $("<input type='date' value='" + txt + "'/>");
+                            else if (this.num == 8 || this.num == 15)
+                                var input = $("<input type='text' value='" + txt + "'/>");
+                            //  else if(this.num == 5||this.num == 6||this.num == 7)
+                            //  var input = $("<input type='text' value='" + txt + "'/>");
+                            // td.html("324214312412341nbsp;&nbsp;");
+                            else if (this.num == 10 || this.num == 11 || this.num == 14)
+                                var input = $("<input type='number' value='" + txt + "'/>");
+
+
+                            td.html(input);
+                            // alert(td.innerHTML);
+                            input.click(function () {
+                                return false;
+                            });
+                            //获取焦点
+                            input.trigger("focus");
+                            //文本框失去焦点后提交内容，重新变为文本
+                            var newtxt;
+                            input.blur(function () {
+                                newtxt = $(this).val();
+                                //判断文本有没有修改
+                                if (newtxt != txt) {
+                                    td.html(newtxt);
+                                    /*
+                                    *不需要使用数据库的这段可以不需要
+                                    var caid = $.trim(td.prev().text());
+                                    //ajax异步更改数据库,加参数date是解决缓存问题
+                                    var url = "../common/Handler2.ashx?caname=" + newtxt + "&caid=" + caid + "&date=" + new Date();
+                                    //使用get()方法打开一个一般处理程序，data接受返回的参数（在一般处理程序中返回参数的方法 context.Response.Write("要返回的参数");）
+                                    //数据库的修改就在一般处理程序中完成
+                                    $.get(url, function(data) {
+                                    if(data=="1")
+                                    {
+                                    alert("该类别已存在！");
+                                    td.html(txt);
+                                    return;
+                                    }
+                                    alert(data);
+                                    td.html(newtxt);
+                                    });
+                                    */
+                                }
+                                else {
+                                    td.html(newtxt);
+                                }
+                                // alert(newtxt);
+                                if (newtxt == "" && No != 1) {
+                                    //    alert(1);
+                                    td.html("可编辑...&nbsp;&nbsp;&nbsp;&nbsp;");
+                                    // $(this).val() = "可编辑...&nbsp;&nbsp;&nbsp;&nbsp;";
+                                }
+                                // else if (newtxt == "" && No==1){
+
+                                // }
+                            });
+                            // alert(this.innerHTML.value);
+
+                        }
+                    }
+
+                });
+            }
+
+
+
+            //弹出层点击事件
+
+        </script>
+        <!-- 处理图片信息 -->
+        <script type="text/javascript">
+            // function check() {
+
+            // }
+
+            //图片上传后相应的函数
+            function handlefiles() {
+                //  var formData = new FormData($("#myForm")[0]);
+                $.ajax({
+                    url: '../getDirServlet',
+                    data: { "dirs": ["a", "b", "c", "sda"] },
+                    dataType: "JSON",
+                    type: "GET",
+                    success: function (data) {
+
+                    },
+                    error: function (err) {
+                        alert('连接失败');
+                    }
+                });
+                check();
+            }
+
+
+        </script>
+        <!-- 文件夹事件 -->
+
+
+        <div style="text-align:center;">
+            <br></div>
+    </div>
+
+
+</body>
+
+</html>

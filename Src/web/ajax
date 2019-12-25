@@ -1,0 +1,6 @@
+$.ajax({
+
+    success:function(data){
+        data.dirs[0]
+    }
+})

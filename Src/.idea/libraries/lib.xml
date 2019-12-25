@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://D:/Tomcat9/lib" />
+      <root url="file://$PROJECT_DIR$/web/WEB-INF/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/web/WEB-INF/lib" />
+      <root url="file://$MAVEN_REPOSITORY$" />
+      <root url="file://$MAVEN_REPOSITORY$/org.apache.poi.xwpf.converter.core-1.0.6" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/web/WEB-INF/lib" recursive="false" />
+    <jarDirectory url="file://D:/Tomcat9/lib" recursive="false" />
+    <jarDirectory url="file://$MAVEN_REPOSITORY$" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/web/WEB-INF/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>

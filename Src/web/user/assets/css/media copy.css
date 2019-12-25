@@ -1,0 +1,128 @@
+.clients-list li{
+width:16.6667%;
+}
+.single-testimonial h2{
+margin-bottom:10px;
+margin-top:0;
+}
+.client-info h2{
+margin-bottom:5px;
+margin-top:14px;
+}
+.single-testimonial{
+padding:30px;
+}
+.plan-link{
+margin-bottom:30px;
+}
+.home-parallax, .parallax-bg{
+background-image:none;
+}
+
+@media (min-width: 768px){
+	.navbar-default .navbar-nav > li > a{
+	letter-spacing:0;
+	}
+	.nav > li > a{
+	font-size:12px;
+	padding:15px 5px;
+	}
+	.navbar-default a.navbar-brand{
+	font-size:20px;
+	}
+	.clients-list li{
+	width:16.6667%;
+	}
+	.single-testimonial h2{
+	margin-bottom:10px;
+	margin-top:0;
+	}
+	.client-info h2{
+	margin-bottom:5px;
+	margin-top:14px;
+	}
+	.single-testimonial{
+	padding:30px;
+	}
+	.plan-link{
+	margin-bottom:30px;
+	}
+}
+@media (min-width: 992px){
+	.navbar-default .navbar-nav > li > a{
+	letter-spacing:1px;
+	}
+	.nav > li > a{
+	font-size:13px;
+	padding:15px 8px;
+	}
+	.navbar-default a.navbar-brand{
+	font-size:24px;
+	}
+	#about .page-title{
+	margin-top:15px;
+	}
+	.single-testimonial h2{
+	margin-top:25px;
+	}
+	.clients-list li{
+	width:25%;
+	}
+	.single-testimonial h2{
+	margin-bottom:25px;
+	}
+	.client-info h2{
+	margin-bottom:10px;
+	margin-top:30px;
+	}
+	.single-testimonial{
+	padding:0 30px 0 0;
+	}
+	.plan-link{
+	margin-bottom:0px;
+	}
+	.plan-features li{
+	font-size:14px;
+	padding:10px;
+	}
+	.home-parallax, .parallax-bg{
+	background-image:url(../img/demo-images/parallax-bg.jpg);
+	}
+	.parallax-bg{
+	background-image:url(../img/demo-images/parallax-one.jpg);
+	}
+}
+@media (min-width: 1200px){
+	.navbar-default .navbar-nav > li > a{
+	letter-spacing:2px;
+	}
+	.nav > li > a{
+	font-size:13px;
+	padding:15px 10px;
+	}
+	.navbar-default a.navbar-brand{
+	font-size:24px;
+	}
+	#about .page-title{
+	margin-top:60px;
+	}
+	.single-testimonial h2{
+	margin-top:50px;
+	}
+	.clients-list li{
+	width:25%;
+	}
+	.plan-features li{
+	font-size:16px;
+	padding:15px 15px 15px 25px;
+	}
+	.client-info h2{
+	margin-top:30px;
+	}
+	.home-parallax, .parallax-bg{
+	background-image:url(../img/demo-images/parallax-bg.jpg);
+	}
+	.parallax-bg{
+	background-image:url(../img/demo-images/parallax-one.jpg);
+	}
+}
